@@ -30,9 +30,9 @@ export class TodoState {
   @Action(CreateTodo)
   createTodo(ctx: StateContext<TodoStateModel>, { payload }: CreateTodo) {
     const state = ctx.getState();
-    payload.id = state.todos[state.todos.length - 1].id + 1;
+    payload.id = state.todos[state.todos.length - 1] ? state.todos[state.todos.length - 1].id + 1 : 0 + 1;
     ctx.patchState({
-      todos: [...state.todos, payload]
+      todos: [...state.todos, payload],
     });
   }
 
