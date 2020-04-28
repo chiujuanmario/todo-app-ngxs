@@ -1,0 +1,43 @@
+<h1>Todo App</h1>
+
+<!-- List of Todos-->
+<div *ngIf="todos">
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Task</th>
+        <th>Status</th>
+        <th></th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let todo of todos | async">
+        <td>{{ todo.id }}</td>
+        <td>{{ todo.task }}</td>
+        <td>
+          {{ todo.status === false ? 'not done' : 'done' }}
+        </td>
+        <td><input class="checkbox" type="checkbox" [checked]="todo.status" (change)="onMark(todo)" /></td>
+        <td>
+          <button class="btn btn-primary" (click)="onEditTodo(todo)">Edit</button>
+          <button class="btn btn-primary" (click)="onDeleteTodo(todo.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- List of Todos-->
+
+<!-- Create/Edit Todo Form-->
+<form class="form" [formGroup]="todoForm" (ngSubmit)="onCreateTodo(todoForm)">
+  <div class="form-group">
+    <label>Task</label>
+    <input type="text" class="form-control" formControlName="task" />
+  </div>
+  <button type="submit">{{ editStatus ? 'Update' : 'Save' }}</button>
+  <button type="button" (click)="onMarkAllTodos()">Mark/Unmark All</button>
+  <button type="button" (click)="onDeleteAllTodos()">Delete All</button>
+</form>
+<!-- Create/Edit Todo Form-->
